@@ -12,6 +12,7 @@ from api.db.users import users_db, get_pass_hash
 
 class UserRequest(BaseModel):
     """User request entry"""
+
     email: str
     password: str
     schoolId: int = 0
@@ -19,17 +20,20 @@ class UserRequest(BaseModel):
 
 class UserResponse(User):
     """User response entry"""
+
     pass
 
 
 class AuthRequest(BaseModel):
     """Auth request entry"""
+
     email: str
     password: str
 
 
 class AuthResponse(BaseModel):
     """Auth response entry"""
+
     token: str
     user: UserResponse
 
@@ -58,7 +62,7 @@ async def authenticate_user(credentials: AuthRequest) -> AuthResponse:
                 token=user.token,
                 user=UserResponse(id=user.id, email=user.email, schoolId=user.school_id),
             )
-        raise credentials_exception 
+        raise credentials_exception
 
     except sqlite3.Error as error:
         connection_exception = HTTPException(

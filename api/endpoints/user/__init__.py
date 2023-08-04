@@ -13,6 +13,7 @@ user_router = APIRouter(prefix="/user", tags=[""])
 
 class User(BaseModel):
     """User entry"""
+
     id: int
     email: str = ""
     schoolId: int = 0
@@ -85,6 +86,7 @@ async def get_current_user_optional(
     if token is None:
         return None
     return await get_current_user(token)
+
 
 # pylint: disable=wrong-import-position
 import api.endpoints.user.auth
