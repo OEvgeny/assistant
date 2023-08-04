@@ -21,8 +21,6 @@ class UserRequest(BaseModel):
 class UserResponse(User):
     """User response entry"""
 
-    pass
-
 
 class AuthRequest(BaseModel):
     """Auth request entry"""

@@ -16,8 +16,6 @@ class UpdateSchoolRequest(BaseModel):
 class UpdateSchoolResponse(User):
     """Update school response entry"""
 
-    pass
-
 
 @user_router.post("/school")
 async def set_school_id(
