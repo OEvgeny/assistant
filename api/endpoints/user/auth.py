@@ -11,21 +11,25 @@ from api.db.users import users_db, get_pass_hash
 
 
 class UserRequest(BaseModel):
+    """User request entry"""
     email: str
     password: str
     schoolId: int = 0
 
 
 class UserResponse(User):
+    """User response entry"""
     pass
 
 
 class AuthRequest(BaseModel):
+    """Auth request entry"""
     email: str
     password: str
 
 
 class AuthResponse(BaseModel):
+    """Auth response entry"""
     token: str
     user: UserResponse
 
@@ -54,7 +58,7 @@ async def authenticate_user(credentials: AuthRequest) -> AuthResponse:
                 token=user.token,
                 user=UserResponse(id=user.id, email=user.email, schoolId=user.school_id),
             )
-        raise credentials_exception
+        raise credentials_exception 
 
     except sqlite3.Error as error:
         connection_exception = HTTPException(
@@ -62,7 +66,7 @@ async def authenticate_user(credentials: AuthRequest) -> AuthResponse:
             detail="Could not connect to Users Database",
         )
         print("Failed to connect to sqlite3 database, error: ", error)
-        raise connection_exception
+        raise connection_exception from error
 
 
 @user_router.post("/register", status_code=201)
@@ -99,4 +103,4 @@ async def register_user(user: UserRequest) -> AuthResponse:
             detail="Could not connect to Users Database",
         )
         print("Failed to connect to sqlite3 database, error: ", error)
-        raise connection_exception
+        raise connection_exception from error
